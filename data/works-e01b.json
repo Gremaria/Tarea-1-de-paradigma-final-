@@ -1,0 +1,62 @@
+[
+    {
+        "id": "WM1",
+        "span": 4,
+        "category": "masonry",
+        "deadline": 8
+    },
+    {
+        "id": "WM2",
+        "span": 6,
+        "category": "masonry",
+        "deadline": 10
+    },
+    {
+        "id": "WP1",
+        "span": 5,
+        "category": "paint",
+        "deadline": 8
+    },
+    {
+        "id": "WP2",
+        "span": 8,
+        "category": "paint",
+        "deadline": 12
+    },
+    {
+        "id": "WM3",
+        "span": 3,
+        "category": "masonry",
+        "deadline": 14
+    },
+    {
+        "id": "WE1",
+        "span": 6,
+        "category": "electric",
+        "deadline": 14
+    },
+    {
+        "id": "WE2",
+        "span": 7,
+        "category": "electric",
+        "deadline": 14
+    },
+    {
+        "id": "WS1",
+        "span": 2,
+        "category": "sanitary",
+        "deadline": 6
+    },
+    {
+        "id": "WS2",
+        "span": 10,
+        "category": "sanitary",
+        "deadline": 16
+    },
+    {
+        "id": "WE3",
+        "span": 9,
+        "category": "electric",
+        "deadline": 20
+    }
+]
