@@ -1,44 +1,119 @@
 import json 
-from rich.console import Console
-from rich.table import Table
 from typing import List, Dict, Any 
+import time
+from rich.table import Table
+from rich.console import Console
  
 #datos de json 
-with open ("data/resources-e01a.json","r") as xd: 
-    recursos= json.load(xd)
-    print(recursos)
 
-print("--------------------------------------------------------------")
+def cargar_recursos(ruta: str):
+    with open(ruta, "r") as f:
+        return json.load(f)
 
-with open ("data/works-e01b.json","r") as w: 
-    trabajo= json.load(w)
-    print(trabajo)
-    
-for s in trabajo:
-    print(s["span"])
+def cargar_trabajo(ruta: str):
+    with open(ruta, "r") as f:
+        return json.load(f)
+
+
 print("-------------------------------------------------------------------------------------------------------------------------------------------")
-# calculos de tiempo, como duracion, inicio, fin y dependencia 0
-#Compatibilidad 
-def compatibilidad(recursos:Dict,trabajo:Dict)->bool: 
-    return trabajo["category"]in recursos["categories"]
-print(compatibilidad(recursos[0], trabajo[0]))
-#duracion: 
-def calcular_duracion_real(trabajo: list, recursos: list) -> float:
-   
-    for t in trabajo: 
-       
-        for r in recursos:
+
+def tiempo_cronograma (trabajo:List, recursos: List)-> Dict:
+     ejecucion=time.time() 
+     cronograma= []  # donde se agrega los datos para el cronograma 
+     recursos_libre={r["id"]: 0 for r in recursos} #[:10]
+     cantidad_por_recurso= {r["id"]: 0 for r in recursos} #[:10]
+     for t in trabajo: 
+        for r in recursos: 
+           if  t["category"]in r["categories"]:
+            duracion = t["span"] / r["efficiency"]
+            comienzo =recursos_libre [r["id"]]
+            fin = comienzo + duracion
+            retraso= max(0.0, fin - t["deadline"])
+            cumple = fin <= t["deadline"]
+
+            cronograma.append({"id" : t["id"],"recurso" :r["id"],"inicio": comienzo,"fin": fin,"retraso": retraso,"cumple": cumple})
             
-            if t["category"] in r["categories"]:
-              
-                duracion = t["span"] / r["efficiency"]
-                
-                print(f"Tarea {t['id']} con {r['id']}: {duracion}")
+        
+            recursos_libre[r["id"]]=fin 
+            cantidad_por_recurso[r["id"]]+= duracion 
+            break 
+     fin_ejecucion= time. time()
+     ejecucion_total= (fin_ejecucion - ejecucion)
+     return {"lista": cronograma, "tiempo_ms": ejecucion_total,"uso_recursos": cantidad_por_recurso}
 
 
+
+print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")        
                 
-  
-    return duracion
+# generador de tabla con rich
+def tabla_cronograma (datos_cronograma:Dict):
+    console= Console()
+    cronograma = datos_cronograma["lista"]
+    tabla= Table(title= "cronograma")
+    tabla.add_column("tarea")
+    tabla.add_column("recurso")
+    tabla. add_column("inicio")
+    tabla. add_column("fin")
+    tabla. add_column("retraso")
+    tabla. add_column("cumple")
+   
+    for c in cronograma:
+        status= "True" if c["cumple"] else "False"
+        tabla.add_row(c["id"],c["recurso"],f"{c['inicio']:.2f}",f"{c['fin']:.2f}",f"{c['retraso']:.2f}",status)
+    console.print(tabla)
+    retrasos_totales= sum (c["retraso"] for c in cronograma)
+    tareas_cumplidas= sum(c["cumple"] for c in cronograma)
+
+    duracion_total = max(c["fin"] for c in cronograma)
+    porcentaje = (tareas_cumplidas / len(cronograma)) * 100
+    console.print("\nEstadisticas Finales:")
+    console.print(f" Suma de Retrasos: {retrasos_totales:.2f}")
+    console.print(f" Cumplimiento Deadlines: {porcentaje:.1f}%")
+    console.print("\nUso por Recurso")
+    for rid, tiempo_uso in datos_cronograma["uso_recursos"].items():
+       
+        porc_uso = (tiempo_uso / duracion_total) * 100
+        console.print(f"{rid}: {porc_uso:.1f}% ")
+    
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+                
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
