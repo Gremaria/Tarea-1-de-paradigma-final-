@@ -1,0 +1,62 @@
+[
+    {
+        "work": "WS1",
+        "resource": "RS1",
+        "start": 0,
+        "end": 2.0
+    },
+    {
+        "work": "WM1",
+        "resource": "RM1",
+        "start": 0,
+        "end": 4.0
+    },
+    {
+        "work": "WP1",
+        "resource": "RC1",
+        "start": 0,
+        "end": 5.0
+    },
+    {
+        "work": "WM2",
+        "resource": "RC2",
+        "start": 0,
+        "end": 6.0
+    },
+    {
+        "work": "WP2",
+        "resource": "RP1",
+        "start": 0,
+        "end": 8.0
+    },
+    {
+        "work": "WM3",
+        "resource": "RM1",
+        "start": 4.0,
+        "end": 7.0
+    },
+    {
+        "work": "WE1",
+        "resource": "RE1",
+        "start": 0,
+        "end": 6.0
+    },
+    {
+        "work": "WE2",
+        "resource": "RE1",
+        "start": 6.0,
+        "end": 13.0
+    },
+    {
+        "work": "WS2",
+        "resource": "RS1",
+        "start": 2.0,
+        "end": 12.0
+    },
+    {
+        "work": "WE3",
+        "resource": "RC2",
+        "start": 6.0,
+        "end": 15.0
+    }
+]

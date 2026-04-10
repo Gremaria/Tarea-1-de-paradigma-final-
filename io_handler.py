@@ -61,8 +61,10 @@ def tabla_cronograma (datos_cronograma:Dict):
     tareas_cumplidas= sum(c["cumple"] for c in cronograma)
 
     duracion_total = max(c["fin"] for c in cronograma)
+    
     porcentaje = (tareas_cumplidas / len(cronograma)) * 100
     console.print("\nEstadisticas Finales:")
+    console.print(f" Makespan: {duracion_total:.2f}")
     console.print(f" Suma de Retrasos: {retrasos_totales:.2f}")
     console.print(f" Cumplimiento Deadlines: {porcentaje:.1f}%")
     console.print("\nUso por Recurso")
