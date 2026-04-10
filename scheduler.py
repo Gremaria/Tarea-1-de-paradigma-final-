@@ -73,7 +73,7 @@ def tiempos_minimizados(recursos: Dict, trabajos: Dict) -> dict:
 
 def tiempo_retraso_minimizado(recursos: Dict, trabajos: Dict) -> dict:
 
-    ejecucion=time.time()
+    ejecucion=time.time()*1000
 
 
     # se ordena el diccionario de trabajos de mayor a menor
